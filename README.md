@@ -1,6 +1,6 @@
 # elema
 
-> elama?
+> elama没
 
 ## Build Setup
 
