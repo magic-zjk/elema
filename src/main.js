@@ -17,8 +17,7 @@ Vue.prototype.$http = axios;
 
 const routes = [
   {path: '/goods', component: goods},
-  {path: '/ratings', component: ratings},
-  {path: '/seller', component: seller}
+  {path: '/ratings', component: ratings}
 ];
 
 const router = new VueRouter({
