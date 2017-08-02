@@ -1,5 +1,5 @@
 <template>
-  <div>我是评论</div>
+  <div class="ted"></div>
 </template>
 
 <script type="text/ecmascript-6">
