@@ -17,6 +17,13 @@
         </div>
       </div>
     </div>
+    <div class="ball-container">
+      <transition name="drop">
+        <div v-for="ball in balls" v-show="ball.show" class="ball">
+          <div class="inners"></div>
+        </div>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -24,13 +31,7 @@
   export default {
     props: {
       selectFoods: {
-        type: Array,
-        default() {
-          return [{
-            price: 8,
-            count: 3
-          }];
-        }
+        type: Array
       },
       deliveryPrice: {
         type: Number
@@ -38,6 +39,27 @@
       minPrice: {
         type: Number
       }
+    },
+    data() {
+      return {
+        balls: [
+          {
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          }
+        ]
+      };
     },
     computed: {
       totalPrice() {
@@ -56,7 +78,7 @@
       },
       payDesc() {
         if (this.totalPrice === 0) {
-          return `￥${this.minPrice}`;
+          return `￥${this.minPrice}元起送`;
         } else if (this.totalPrice < this.minPrice) {
           let diff = this.minPrice - this.totalPrice;
           return `还差￥${diff}元起送`;
@@ -71,6 +93,9 @@
           return 'enough';
         }
       }
+    },
+    created() {
+      this.$root.eventHub.$on('cart.add', this.drop)
     }
   };
 </script>
@@ -167,4 +192,18 @@
           &.enough
             background: #00b43c
             color: #fff
+    .ball-container
+      .ball
+        position: fixed
+        left: 32px
+        bottom: 22px
+        z-index: 200
+        &.drop-transition
+          transition: all 0.4s
+          .inner
+            width: 16px
+            height: 16px
+            border-radius: 50%
+            background: rgb(0, 160, 220)
+            transition: all 0.4s
 </style>
