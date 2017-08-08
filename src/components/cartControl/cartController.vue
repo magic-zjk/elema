@@ -12,8 +12,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import Vue from 'vue';
-
   export default {
     props: {
       food: {
@@ -28,11 +26,11 @@
           return;
         }
         if (!this.food.count) {
-          Vue.set(this.food, 'count', 1);// food中没有count属性，需要这样进行绑定才可以。此组件中的值同样会影响父组件中的值。
+          this.$root.eventHub.$set(this.food, 'count', 1);// food中没有count属性，需要这样进行绑定才可以。此组件中的值同样会影响父组件中的值。
         } else {
           this.food.count++;
         }
-        this.$root.eventHub.$emit('cart.add', target);
+        this.$root.eventHub.$emit('cart.add', event.target);
       },
       decreaseCart(event) {
         if (!event._constructed) { // 如果是浏览器原生的话event._constructed返回folse，则阻止；如果是bscroll拆件点击事件则放行，防止pc端出现两次点击
@@ -52,7 +50,7 @@
     .cart-decrease
       display: inline-block
       padding: 6px
-      transition: all .4s linear
+      transition: all 0.4s linear
       .inner
         line-height: 24px
         font-size: 24px
@@ -63,7 +61,7 @@
         .inner
           display: inline-block
           transform: rotate(0)
-      &.move-enter, &.move-leave-active
+      &.move-enter, &.move-leave-to
         opacity: 0
         transform: translate3d(24px, 0, 0)
         .inner

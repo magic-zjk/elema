@@ -29,7 +29,12 @@ const router = new VueRouter({
 /* eslint-disable no-new */
 new Vue({
   router,
-  components: {App}
+  components: {
+    App
+  },
+  data: {
+    eventHub: new Vue()
+  }
 }).$mount('#app');
 
 router.push('/goods');
